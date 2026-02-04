@@ -1,5 +1,10 @@
 const PHOTOS = [
   {
+    file: "flower-field-us.jpg",
+    date: "花海里的我们",
+    caption: "那天站在一大片花里，看着相机里的照片时，我在想：以后是不是还能多拍很多很多次。",
+  },
+  {
     file: "lake-portrait.jpg",
     date: "某个傍晚",
     caption: "那天湖边的风刚刚好，你也刚刚好。",
