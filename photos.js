@@ -20,6 +20,11 @@ const PHOTOS = [
     caption: "把你扛在肩上的那一刻，突然觉得自己真的可以撑起你的全世界。",
   },
   {
+    file: "lake-talk.jpg",
+    date: "在湖边说悄悄话",
+    caption: "你看着湖，我看着你，很多话没说出口，但我们都懂。",
+  },
+  {
     file: "sunset-tree.jpg",
     date: "某天的日落树下",
     caption: "夕阳刚好拍在你侧脸上，我那一瞬间只剩下一个念头：好想把这一刻收藏起来。",
@@ -55,9 +60,44 @@ const PHOTOS = [
     caption: "那天光特别暖，我偷偷许了个愿：以后每一个日落都想和你一起看。",
   },
   {
+    file: "flowers-walk-1.jpg",
+    date: "花海边的散步 1",
+    caption: "你穿着黑色上衣和白裙子走过来，感觉整片花都变成了你的背景板。",
+  },
+  {
+    file: "flowers-walk-2.jpg",
+    date: "花海边的散步 2",
+    caption: "那天风不大，花在轻轻晃，你在慢慢走，我在后面偷偷按快门。",
+  },
+  {
+    file: "sunset-silhouette-1.jpg",
+    date: "日落剪影 1",
+    caption: "夕阳把你变成一团剪影，我突然有点分不清，是你在捧花，还是整片黄昏在捧着你。",
+  },
+  {
+    file: "sunset-silhouette-2.jpg",
+    date: "日落剪影 2",
+    caption: "背景什么都看不清，只看得见你拿着那束花的样子，安静又好看。",
+  },
+  {
+    file: "bouquet-close-orange-1.jpg",
+    date: "橙色小玫瑰 1",
+    caption: "你把花举到嘴边，我只顾着看你的笑，差点忘了按快门。",
+  },
+  {
+    file: "bouquet-close-orange-2.jpg",
+    date: "橙色小玫瑰 2",
+    caption: "这张本来是想拍花，结果最后变成了我最喜欢的你。",
+  },
+  {
     file: "street-food.jpg",
     date: "一起逛夜市",
     caption: "人群很吵、摊位很多，我只记得一直牵着你的手，没有走散过。",
+  },
+  {
+    file: "scooter-hands.jpg",
+    date: "回家的路上",
+    caption: "花放在车后座，你的手在我掌心，我突然觉得，以后回家的路都想这样走。",
   },
   {
     file: "ski-helmet.jpg",
