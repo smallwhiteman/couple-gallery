@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  background: #fafafa;
+  color: #222;
+}
+
+.site-header {
+  text-align: center;
+  padding: 32px 16px 16px;
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: #777;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  padding: 16px;
+  max-width: 1000px;
+  margin: 0 auto 40px;
+}
+
+.photo-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #eee;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.photo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-meta {
+  padding: 8px 10px 10px;
+  background: #fff;
+}
+
+.photo-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.photo-caption {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #444;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.lightbox.hidden {
+  display: none;
+}
+
+.lightbox-content {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 900px;
+  width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.lightbox img {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  background: #000;
+}
+
+.lightbox-meta {
+  padding: 12px 16px 16px;
+}
+
+.lightbox-meta .date {
+  font-size: 13px;
+  color: #999;
+}
+
+.lightbox-meta .caption {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  border: none;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.site-footer {
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+  padding: 16px 0 24px;
+}
+
+@media (max-width: 600px) {
+  .photo-card img {
+    height: 140px;
+  }
+}

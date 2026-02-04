@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Our Moments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Our Moments</h1>
+    <p class="subtitle">记录我们的日常小片段</p>
+  </header>
+
+  <main>
+    <section id="gallery" class="gallery"></section>
+
+    <div id="lightbox" class="lightbox hidden">
+      <div class="lightbox-content">
+        <button id="lightbox-close" class="close-btn" aria-label="关闭">×</button>
+        <img id="lightbox-image" src="" alt="" />
+        <div class="lightbox-meta">
+          <p id="lightbox-date" class="date"></p>
+          <p id="lightbox-caption" class="caption"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Made with ❤</p>
+  </footer>
+
+  <script src="photos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
