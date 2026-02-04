@@ -164,4 +164,54 @@ const PHOTOS = [
     date: "花束和那家小店 2",
     caption: "对焦有点乱，但我记得很清楚：那天的主角是你和这束花。",
   },
+  {
+    file: "pavilion-back.jpg",
+    date: "湖边小亭子 1",
+    caption: "旁边人来人往，我们在小亭子里悄悄靠在一起，世界突然变得很安静。",
+  },
+  {
+    file: "swan-boat-back.jpg",
+    date: "湖边的蓝色小船",
+    caption: "你抱着花站在岸边，看着远处的小船，我在旁边看你，心里已经在计划下一次约会。",
+  },
+  {
+    file: "pavilion-hug.jpg",
+    date: "湖边小亭子 2",
+    caption: "你把头靠过来的那一下，我突然觉得，以后难过的时候也想给你这样一个肩膀。",
+  },
+  {
+    file: "letter-close.jpg",
+    date: "信纸和花束",
+    caption: "字写得有点乱，花却很认真，就像我笨拙的表达里藏着很多认真的喜欢。",
+  },
+  {
+    file: "bouquet-close.jpg",
+    date: "那束花的特写",
+    caption: "那天挑花的时候一直在想，你看到它的时候会不会也像现在这样笑。",
+  },
+  {
+    file: "forehead-touch.jpg",
+    date: "轻轻靠在一起",
+    caption: "额头碰在一起的那一刻，所有的紧张一下子都变成了踏实。",
+  },
+  {
+    file: "pavilion-side.jpg",
+    date: "小亭子侧面",
+    caption: "树挡住了一点画面，但我知道画面里有你，画面外也有你。",
+  },
+  {
+    file: "white-flowers-tree.jpg",
+    date: "路边那棵开花的树",
+    caption: "那天花开得很安静，我悄悄记住了地点，以后路过都会想到你。",
+  },
+  {
+    file: "sunset-couple-lake.jpg",
+    date: "日落前的一张合影",
+    caption: "天还没完全黑，你抱着花，我在旁边抓紧你的手，觉得这一切刚刚好。",
+  },
+  {
+    file: "rings-show-lake.jpg",
+    date: "举起手给镜头看",
+    caption: "我们一起把手举给镜头看，其实是想告诉世界：我选的人就是她 / 他。",
+  },
 ];
