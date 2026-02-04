@@ -114,4 +114,54 @@ const PHOTOS = [
     date: "湖边的小店",
     caption: "那家小店其实没什么特别的，但因为那天有你，所以被我记成了“我们的地方”。",
   },
+  {
+    file: "willow-reflection.jpg",
+    date: "湖面上的倒影",
+    caption: "柳枝在水面上晃来晃去，像那天有点紧张又开心的心情。",
+  },
+  {
+    file: "bouquet-lake-duck.jpg",
+    date: "湖边的花和小黄鸭",
+    caption: "花束安静地站在岸边，小黄鸭慢慢划过去，那一刻世界很乱，但我们这格画面很温柔。",
+  },
+  {
+    file: "couple-heart-soft.jpg",
+    date: "天色暗下来的时候",
+    caption: "光线有点糊，但两个人拼成的心是真的，那天我也真的很紧张。",
+  },
+  {
+    file: "ring-by-lake.jpg",
+    date: "在湖边戴上的戒指",
+    caption: "你低头看指尖的那一圈，我在旁边看你，心里只剩下四个字：以后一起吧。",
+  },
+  {
+    file: "couple-heart-night.jpg",
+    date: "彻底黑下来的夜里",
+    caption: "背景全黑、灯光不稳，但你怀里的花和我们拼的心在那一刻特别亮。",
+  },
+  {
+    file: "letter-reading.jpg",
+    date: "你听我念那封信",
+    caption: "纸上写的是很多很多话，真正想说的其实就一句：谢谢你愿意走进我的人生。",
+  },
+  {
+    file: "couple-heart-pinkboat.jpg",
+    date: "粉色小船划过的湖面",
+    caption: "远处的小船慢慢飘过去，我们在岸边拼了一个心，偷偷许了好几个愿望。",
+  },
+  {
+    file: "hand-in-hand-night.jpg",
+    date: "牵着手走回去的路",
+    caption: "灯光不多，脚下有点累，但你拎着花、我牵着你，觉得那一段路格外短。",
+  },
+  {
+    file: "bouquet-cafe-focus.jpg",
+    date: "花束和那家小店 1",
+    caption: "镜头里是花和小店，镜头外是那天的紧张和期待，全都跟你有关。",
+  },
+  {
+    file: "bouquet-cafe-blur.jpg",
+    date: "花束和那家小店 2",
+    caption: "对焦有点乱，但我记得很清楚：那天的主角是你和这束花。",
+  },
 ];
