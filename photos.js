@@ -250,6 +250,11 @@ const PHOTOS = [
     caption: "对焦有点乱，但我记得很清楚：那天的主角是你和这束花。",
   },
   {
+    file: "pavilion-hug-2.jpg",
+    date: "凉亭旁边的那一刻",
+    caption: "别人都在看风景，你靠在我身边，我在想：我今天的风景已经够好了。",
+  },
+  {
     file: "pavilion-back.jpg",
     date: "湖边凉亭的一小格安静",
     caption: "人来人往，我们缩在角落里，小声说着只有彼此才听得懂的话。",
