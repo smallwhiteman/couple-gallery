@@ -12,12 +12,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("theme-toggle");
   const backToTopBtn = document.getElementById("back-to-top");
   const photoCountEl = document.getElementById("photo-count");
+  const loveTimerEl = document.getElementById("love-timer");
 
   let currentIndex = 0;
   let currentPhotos = [...PHOTOS];
 
   if (photoCountEl) {
     photoCountEl.textContent = ` · 共 ${PHOTOS.length} 张照片`;
+  }
+
+  if (loveTimerEl) {
+    const start = new Date('2025-12-06T17:20:00').getTime();
+
+    const updateLoveTimer = () => {
+      const now = Date.now();
+      const diffMs = Math.max(0, now - start);
+      const totalSeconds = Math.floor(diffMs / 1000);
+
+      const days = Math.floor(totalSeconds / (24 * 3600));
+      const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      loveTimerEl.textContent = ` · 在一起 ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds.toString().padStart(2, '0')} 秒`;
+    };
+
+    updateLoveTimer();
+    setInterval(updateLoveTimer, 1000);
   }
 
   // 深色模式
