@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "sunset-silhouette-2.jpg": "portrait",
     "bouquet-close-orange-1.jpg": "portrait",
     "bouquet-close-orange-2.jpg": "portrait",
+    "home-dinner-feast.jpg": "daily",
     "street-food.jpg": "daily",
     "scooter-hands.jpg": "daily",
     "ski-helmet.jpg": "daily",

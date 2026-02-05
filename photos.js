@@ -15,6 +15,11 @@ const PHOTOS = [
     caption: "给小公主准备的晚餐和花，希望以后的每一次庆祝都有你。",
   },
   {
+    file: "home-dinner-feast.jpg",
+    date: "在家给你做的一桌菜",
+    caption: "那天我忙前忙后在家做了一大桌菜，其实只是想让你知道：想吃好吃的，回家就有。",
+  },
+  {
     file: "scooter-ride.jpg",
     date: "某个骑车回家的路上",
     caption: "风很大，但抱着你的那一刻，我只觉得很安心。",
