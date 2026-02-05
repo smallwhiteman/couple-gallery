@@ -217,7 +217,7 @@ const PHOTOS = [
   {
     file: "heart-hands.jpg",
     date: "地上的那颗心",
-    caption: "两只手拼成的心看起来有点笨，但里面装的，都是认真。",
+    caption: "那天我们蹲在地上拼成这颗心，没坐在车上，却把那一整片广场都变成了我们的背景。",
   },
   {
     file: "carousel-back.jpg",
