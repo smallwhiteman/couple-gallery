@@ -311,5 +311,5 @@ body.dark-mode .header-btn:hover {
 body.dark-mode .photo-count { color: #aaa; }
 
 /* 爱情计时器样式 */
-.love-timer { margin-left: 8px; font-size: 0.9rem; font-weight: 400; color: #ff8585; }
+.love-timer { margin-top: 4px; font-size: 0.9rem; font-weight: 400; color: #ff8585; text-align: center; }
 body.dark-mode .love-timer { color: #ffb3b3; }
