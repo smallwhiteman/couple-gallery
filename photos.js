@@ -70,6 +70,31 @@ const PHOTOS = [
     caption: "你把一朵小花别在头发上，我偷偷记下了那天的光、风和你的笑。",
   },
   {
+    file: "sunset-salute.jpg",
+    date: "夕阳下的敬礼",
+    caption: "那天你举着花朝我这边‘敬礼’，我心里想的是：以后每一个黄昏都想被你点名。",
+  },
+  {
+    file: "lake-breath.jpg",
+    date: "闭眼感受阳光的你",
+    caption: "你闭着眼深呼吸，我在一旁看着，觉得整条湖边都安静下来了。",
+  },
+  {
+    file: "lake-coat-front.jpg",
+    date: "湖边的米色大衣 1",
+    caption: "那天阳光很猛、背景很亮，我一对焦，只剩下你笑着站在那。",
+  },
+  {
+    file: "park-coat-front.jpg",
+    date: "公园里的那张正面照",
+    caption: "树荫在后面，你站在光里，我那一刻觉得这就是我心里‘很安心’的样子。",
+  },
+  {
+    file: "lake-coat-arms.jpg",
+    date: "张开手的那一下",
+    caption: "你在湖边张开手说要感受风，我在旁边偷偷想：以后每一次风都想陪你一起吹。",
+  },
+  {
     file: "sunset-tree.jpg",
     date: "某天的日落树下",
     caption: "夕阳刚好拍在你侧脸上，我那一瞬间只剩下一个念头：好想把这一刻收藏起来。",
