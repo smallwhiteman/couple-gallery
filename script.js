@@ -16,89 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const photoCountEl = document.getElementById("photo-count");
   const loveTimerEl = document.getElementById("love-timer");
   const categoryNav = document.getElementById("category-nav");
-  const categoryButtons = categoryNav ? categoryNav.querySelectorAll(".category-btn") : [];
   const bgMusic = document.getElementById("bg-music");
 
-  const CATEGORY_MAP = {
-    "flower-field-us.jpg": "portrait",
-    "flower-field-us.jpg": "portrait",
-    "lake-portrait.jpg": "portrait",
-    "birthday-dinner.jpg": "daily",
-    "scooter-ride.jpg": "daily",
-    "night-shoulders.jpg": "daily",
-    "lake-talk.jpg": "daily",
-    "headphones-night.jpg": "portrait",
-    "field-photo-1.jpg": "portrait",
-    "field-photo-2.jpg": "portrait",
-    "flowers-squat.jpg": "portrait",
-    "flowers-squat-2.jpg": "portrait",
-    "flowers-offer.jpg": "portrait",
-    "lake-ears.jpg": "portrait",
-    "flowers-front-bouquet.jpg": "portrait",
-    "flowers-hair.jpg": "portrait",
-    "sunset-salute.jpg": "portrait",
-    "lake-breath.jpg": "portrait",
-    "lake-coat-front.jpg": "portrait",
-    "lake-coat-front-2.jpg": "portrait",
-    "park-coat-front.jpg": "portrait",
-    "park-coat-grass.jpg": "portrait",
-    "lake-coat-arms.jpg": "portrait",
-    "sunset-tree.jpg": "portrait",
-    "sunset-lake-lean.jpg": "portrait",
-    "sunset-lake-v.jpg": "portrait",
-    "sunset-lake-ok.jpg": "portrait",
-    "sunset-lake-think.jpg": "portrait",
-    "lake-blue.jpg": "portrait",
-    "sunset-tree-2.jpg": "portrait",
-    "flowers-walk-1.jpg": "portrait",
-    "flowers-walk-2.jpg": "portrait",
-    "rock-flowers.jpg": "portrait",
-    "sunset-silhouette-1.jpg": "portrait",
-    "sunset-silhouette-2.jpg": "portrait",
-    "bouquet-close-orange-1.jpg": "portrait",
-    "bouquet-close-orange-2.jpg": "portrait",
-    "home-dinner-feast.jpg": "daily",
-    "street-food.jpg": "daily",
-    "scooter-hands.jpg": "daily",
-    "ski-helmet.jpg": "daily",
-    "dog-cafe-group.jpg": "daily",
-    "dog-cafe-hold.jpg": "daily",
-    "night-street-food-2.jpg": "daily",
-    "mirror-hug.jpg": "daily",
-    "rings-bands.jpg": "daily",
-    "bumper-pink-1.jpg": "daily",
-    "bumper-pink-2.jpg": "daily",
-    "heart-hands.jpg": "daily",
-    "carousel-back.jpg": "daily",
-    "lakeside-cafe.jpg": "confession",
-    "willow-reflection.jpg": "confession",
-    "bouquet-lake-duck.jpg": "confession",
-    "couple-heart-soft.jpg": "confession",
-    "ring-by-lake.jpg": "confession",
-    "couple-heart-night.jpg": "confession",
-    "letter-reading.jpg": "confession",
-    "couple-heart-pinkboat.jpg": "confession",
-    "hand-in-hand-night.jpg": "confession",
-    "bouquet-cafe-focus.jpg": "confession",
-    "bouquet-cafe-blur.jpg": "confession",
-    "pavilion-hug-2.jpg": "confession",
-    "pavilion-back.jpg": "confession",
-    "swan-boat-back.jpg": "confession",
-    "pavilion-hug.jpg": "confession",
-    "letter-close.jpg": "confession",
-    "bouquet-close.jpg": "confession",
-    "forehead-touch.jpg": "confession",
-    "pavilion-side.jpg": "confession",
-    "white-flowers-tree.jpg": "confession",
-    "sunset-couple-lake.jpg": "confession",
-    "rings-show-lake.jpg": "confession",
-    "hair-fix-night.jpg": "confession"
-  };
-
-  const allPhotos = PHOTOS.map((p) => ({
-    ...p,
-    category: CATEGORY_MAP[p.file] || "daily",
-  }));
+  const allPhotos = [...PHOTOS];
 
   let currentIndex = 0;
   let currentPhotos = [...allPhotos];
@@ -108,11 +28,31 @@ document.addEventListener("DOMContentLoaded", () => {
     photoCountEl.textContent = ` · 共 ${PHOTOS.length} 张照片`;
   }
 
-  const CATEGORY_LABELS = {
-    confession: '表白',
-    portrait: '写真',
-    daily: '日常',
-  };
+  // 自动渲染分类导航按钮
+  function renderCategoryNav() {
+    if (!categoryNav) return;
+
+    // 添加"全部"按钮
+    const allBtn = document.createElement("button");
+    allBtn.className = "category-btn active";
+    allBtn.dataset.category = "all";
+    allBtn.textContent = "全部";
+    categoryNav.appendChild(allBtn);
+
+    // 根据 CATEGORY_LABELS 渲染分类按钮
+    Object.entries(CATEGORY_LABELS).forEach(([key, label]) => {
+      const btn = document.createElement("button");
+      btn.className = "category-btn";
+      btn.dataset.category = key;
+      btn.textContent = label;
+      categoryNav.appendChild(btn);
+    });
+
+    // 更新 categoryButtons 引用
+    return categoryNav.querySelectorAll(".category-btn");
+  }
+
+  const categoryButtons = renderCategoryNav();
 
   if (loveTimerEl) {
     const start = new Date('2025-12-06T17:20:00').getTime();
@@ -253,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     counterEl.textContent = `${index + 1} / ${currentPhotos.length}`;
 
     if (categoryEl) {
-      const catKey = photo.category || (CATEGORY_MAP[photo.file] || 'daily');
+      const catKey = photo.category || 'daily';
       const label = CATEGORY_LABELS[catKey] || '日常';
       categoryEl.textContent = `类别：${label}`;
     }
