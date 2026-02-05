@@ -10,28 +10,38 @@
   <header class="site-header">
     <h1>Our Moments</h1>
     <p class="subtitle">记录我们的日常小片段</p>
+    <div class="header-buttons">
+      <button id="random-btn" class="header-btn" aria-label="随机照片">🎲 随机回忆</button>
+      <button id="theme-toggle" class="header-btn" aria-label="切换主题">🌙</button>
+    </div>
   </header>
 
   <main>
     <section id="gallery" class="gallery"></section>
 
     <div id="lightbox" class="lightbox hidden">
+      <button id="lightbox-prev" class="nav-btn prev-btn" aria-label="上一张">‹</button>
       <div class="lightbox-content">
         <button id="lightbox-close" class="close-btn" aria-label="关闭">×</button>
         <img id="lightbox-image" src="" alt="" />
         <div class="lightbox-meta">
+          <p id="lightbox-counter" class="counter"></p>
           <p id="lightbox-date" class="date"></p>
           <p id="lightbox-caption" class="caption"></p>
         </div>
       </div>
+      <button id="lightbox-next" class="nav-btn next-btn" aria-label="下一张">›</button>
     </div>
   </main>
 
   <footer class="site-footer">
-    <p>Made with ❤</p>
+    <p>Made with ❤ by <a href="https://github.com/smallwhiteman">Smallwhiteman</a></p>
   </footer>
+
+  <button id="back-to-top" class="back-to-top hidden" aria-label="返回顶部">↑</button>
 
   <script src="photos.js"></script>
   <script src="script.js"></script>
+  <script src="yinghua.js"></script>
 </body>
 </html>
