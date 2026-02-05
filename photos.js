@@ -140,6 +140,11 @@ const PHOTOS = [
     caption: "那天风不大，花在轻轻晃，你在慢慢走，我在后面偷偷按快门。",
   },
   {
+    file: "rock-flowers.jpg",
+    date: "石头上的那张",
+    caption: "你坐在石头上把花递过来，我突然有点分不清，是你在给我花，还是整片下午在给我礼物。",
+  },
+  {
     file: "sunset-silhouette-1.jpg",
     date: "日落剪影 1",
     caption: "夕阳把你变成一团剪影，我突然有点分不清，是你在捧花，还是整片黄昏在捧着你。",
