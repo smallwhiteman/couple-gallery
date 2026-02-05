@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "bumper-pink-1.jpg": "daily",
     "bumper-pink-2.jpg": "daily",
     "heart-hands.jpg": "confession",
-    "carousel-back.jpg": "portrait",
+    "carousel-back.jpg": "daily",
     "lakeside-cafe.jpg": "confession",
     "willow-reflection.jpg": "confession",
     "bouquet-lake-duck.jpg": "confession",
