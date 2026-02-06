@@ -364,3 +364,83 @@ body.dark-mode .category-btn.active {
 
 .lightbox-meta .category { font-size: 12px; color: #999; margin-top: 2px; }
 body.dark-mode .lightbox-meta .category { color: #aaa; }
+
+/* 大事记时间轴 */
+.timeline {
+  position: relative;
+  max-width: 720px;
+  margin: 40px auto 60px;
+  padding: 0 16px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 24px;
+  width: 2px;
+  background: #e5e5e5;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 56px;
+  margin-bottom: 32px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 16px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ff8585;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px rgba(255,133,133,0.35);
+}
+
+.timeline-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 14px 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.timeline-date {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: #999;
+}
+
+.timeline-title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.timeline-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #444;
+}
+
+body.dark-mode .timeline::before {
+  background: #444;
+}
+
+body.dark-mode .timeline-content {
+  background: #2a2a2a;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .timeline-date {
+  color: #aaa;
+}
+
+body.dark-mode .timeline-desc {
+  color: #ddd;
+}
+
