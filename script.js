@@ -102,8 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (bgMusic && musicToggle) {
     bgMusic.loop = true;
     let musicPlaying = false;
-    const preferred = localStorage.getItem("bgMusic") || "on"; // 默认开启
-    updateMusicToggle(false);
+    const preferred = localStorage.getItem("bgMusic") || "on"; // 用户总体偏好
+    const stateKey = "bgMusicState";
+    const timeKey = "bgMusicTime";
+    const lastState = localStorage.getItem(stateKey) || "stopped";
+    const lastTime = parseFloat(localStorage.getItem(timeKey) || "0");
 
     const bindGesturePlay = () => {
       const handler = () => {
@@ -111,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
           musicPlaying = true;
           updateMusicToggle(true);
           localStorage.setItem("bgMusic", "on");
+          localStorage.setItem(stateKey, "playing");
         }).catch(() => {});
       };
       ["click", "touchstart", "keydown"].forEach((evt) => {
@@ -118,19 +122,48 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     };
 
-    const autoPlayIfPreferred = () => {
-      if (preferred !== "on") return;
-      bgMusic.play().then(() => {
-        musicPlaying = true;
-        updateMusicToggle(true);
-      }).catch(() => {
-        // 需要用户手势时，挂一次全局监听
-        bindGesturePlay();
-      });
+    const initFromLastState = () => {
+      if (!Number.isNaN(lastTime) && lastTime > 0) {
+        try {
+          bgMusic.currentTime = lastTime;
+        } catch (e) {
+          // 某些浏览器可能不允许立即设置 currentTime，忽略即可
+        }
+      }
+
+      if (lastState === "playing" && preferred === "on") {
+        bgMusic.play().then(() => {
+          musicPlaying = true;
+          updateMusicToggle(true);
+        }).catch(() => {
+          // 如果被策略拦截，就等下一次用户手势
+          bindGesturePlay();
+        });
+      } else {
+        updateMusicToggle(lastState === "playing");
+      }
     };
 
-    // 打开页面尝试自动播放（可能会被浏览器策略拦截）
-    autoPlayIfPreferred();
+    if (bgMusic.readyState >= 1) {
+      initFromLastState();
+    } else {
+      bgMusic.addEventListener("loadedmetadata", initFromLastState, { once: true });
+    }
+
+    // 播放进度持久化，方便在大事记/首页之间切换时续播
+    bgMusic.addEventListener("timeupdate", () => {
+      if (!musicPlaying) return;
+      try {
+        localStorage.setItem(timeKey, String(bgMusic.currentTime || 0));
+      } catch (e) {}
+    });
+
+    window.addEventListener("beforeunload", () => {
+      try {
+        localStorage.setItem(timeKey, String(bgMusic.currentTime || 0));
+        localStorage.setItem(stateKey, musicPlaying ? "playing" : "paused");
+      } catch (e) {}
+    });
 
     musicToggle.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -139,11 +172,13 @@ document.addEventListener("DOMContentLoaded", () => {
         musicPlaying = false;
         updateMusicToggle(false);
         localStorage.setItem("bgMusic", "off");
+        localStorage.setItem(stateKey, "paused");
       } else {
         bgMusic.play().then(() => {
           musicPlaying = true;
           updateMusicToggle(true);
           localStorage.setItem("bgMusic", "on");
+          localStorage.setItem(stateKey, "playing");
         }).catch(() => {
           bindGesturePlay();
         });

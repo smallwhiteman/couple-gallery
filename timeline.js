@@ -32,9 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (bgMusic && musicToggle) {
     bgMusic.loop = true;
     let musicPlaying = false;
-    const preferred = localStorage.getItem("bgMusic") || "on"; // 默认开启
-    // 只用偏好来设置按钮样式，不在新页面自动播放，避免每次从头播放
-    updateMusicToggle(preferred === "on");
+    const preferred = localStorage.getItem("bgMusic") || "on"; // 用户总体偏好
+    const stateKey = "bgMusicState";
+    const timeKey = "bgMusicTime";
+    const lastState = localStorage.getItem(stateKey) || "stopped";
+    const lastTime = parseFloat(localStorage.getItem(timeKey) || "0");
 
     const bindGesturePlay = () => {
       const handler = () => {
@@ -42,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
           musicPlaying = true;
           updateMusicToggle(true);
           localStorage.setItem("bgMusic", "on");
+          localStorage.setItem(stateKey, "playing");
         }).catch(() => {});
       };
       ["click", "touchstart", "keydown"].forEach((evt) => {
@@ -49,8 +52,46 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     };
 
-    // 在大事记页面不自动播放背景音乐，只有用户点击按钮时才开始播放，
-    // 避免从首页跳转过来后曲子每次都从头开始。
+    const initFromLastState = () => {
+      if (!Number.isNaN(lastTime) && lastTime > 0) {
+        try {
+          bgMusic.currentTime = lastTime;
+        } catch (e) {}
+      }
+
+      // 如果首页正在播放，则在大事记页续播；否则只更新按钮状态
+      if (lastState === "playing" && preferred === "on") {
+        bgMusic.play().then(() => {
+          musicPlaying = true;
+          updateMusicToggle(true);
+        }).catch(() => {
+          bindGesturePlay();
+        });
+      } else {
+        updateMusicToggle(lastState === "playing");
+      }
+    };
+
+    if (bgMusic.readyState >= 1) {
+      initFromLastState();
+    } else {
+      bgMusic.addEventListener("loadedmetadata", initFromLastState, { once: true });
+    }
+
+    // 播放进度持久化，方便在首页/大事记之间切换时续播
+    bgMusic.addEventListener("timeupdate", () => {
+      if (!musicPlaying) return;
+      try {
+        localStorage.setItem(timeKey, String(bgMusic.currentTime || 0));
+      } catch (e) {}
+    });
+
+    window.addEventListener("beforeunload", () => {
+      try {
+        localStorage.setItem(timeKey, String(bgMusic.currentTime || 0));
+        localStorage.setItem(stateKey, musicPlaying ? "playing" : "paused");
+      } catch (e) {}
+    });
 
     musicToggle.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -59,11 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
         musicPlaying = false;
         updateMusicToggle(false);
         localStorage.setItem("bgMusic", "off");
+        localStorage.setItem(stateKey, "paused");
       } else {
         bgMusic.play().then(() => {
           musicPlaying = true;
           updateMusicToggle(true);
           localStorage.setItem("bgMusic", "on");
+          localStorage.setItem(stateKey, "playing");
         }).catch(() => {
           bindGesturePlay();
         });
