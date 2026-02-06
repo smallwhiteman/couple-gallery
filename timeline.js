@@ -33,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
     bgMusic.loop = true;
     let musicPlaying = false;
     const preferred = localStorage.getItem("bgMusic") || "on"; // 默认开启
-    updateMusicToggle(false);
+    // 只用偏好来设置按钮样式，不在新页面自动播放，避免每次从头播放
+    updateMusicToggle(preferred === "on");
 
     const bindGesturePlay = () => {
       const handler = () => {
@@ -48,19 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     };
 
-    const autoPlayIfPreferred = () => {
-      if (preferred !== "on") return;
-      bgMusic.play().then(() => {
-        musicPlaying = true;
-        updateMusicToggle(true);
-      }).catch(() => {
-        // 需要用户手势时，挂一次全局监听
-        bindGesturePlay();
-      });
-    };
-
-    // 打开页面尝试自动播放（可能会被浏览器策略拦截）
-    autoPlayIfPreferred();
+    // 在大事记页面不自动播放背景音乐，只有用户点击按钮时才开始播放，
+    // 避免从首页跳转过来后曲子每次都从头开始。
 
     musicToggle.addEventListener("click", (e) => {
       e.stopPropagation();
