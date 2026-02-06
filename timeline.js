@@ -59,8 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (e) {}
       }
 
-      // 如果首页正在播放，则在大事记页续播；否则只更新按钮状态
-      if (lastState === "playing" && preferred === "on") {
+      // 根据上一次状态决定是否自动续播：
+      // 1. 第一次进入（stopped + preferred=on）→ 从头自动播
+      // 2. 上一页在播放（playing + preferred=on）→ 续播
+      const shouldAutoPlay = preferred === "on" && (lastState === "playing" || lastState === "stopped");
+
+      if (shouldAutoPlay) {
         bgMusic.play().then(() => {
           musicPlaying = true;
           updateMusicToggle(true);

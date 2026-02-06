@@ -131,7 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      if (lastState === "playing" && preferred === "on") {
+      const shouldAutoPlay = preferred === "on" && (lastState === "playing" || lastState === "stopped");
+
+      if (shouldAutoPlay) {
         bgMusic.play().then(() => {
           musicPlaying = true;
           updateMusicToggle(true);
