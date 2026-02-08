@@ -18,14 +18,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoryNav = document.getElementById("category-nav");
   const bgMusic = document.getElementById("bg-music");
 
-  const allPhotos = [...PHOTOS];
+  // 「100个瞬间」分类的解锁时间（2026-02-11 12:00 Asia/Shanghai）
+  const MOMENTS_CATEGORY = "moments";
+  const MOMENTS_UNLOCK_TIMESTAMP = Date.parse("2026-02-11T04:00:00Z"); // 同一时刻的 UTC 时间
+  const isMomentsUnlocked = () => Date.now() >= MOMENTS_UNLOCK_TIMESTAMP;
+
+  // 在解锁时间前，从相册中排除 100 个瞬间的照片
+  const allPhotos = isMomentsUnlocked()
+    ? [...PHOTOS]
+    : PHOTOS.filter((p) => p.category !== MOMENTS_CATEGORY);
 
   let currentIndex = 0;
   let currentPhotos = [...allPhotos];
   let activeCategory = "all";
 
   if (photoCountEl) {
-    photoCountEl.textContent = ` · 共 ${PHOTOS.length} 张照片`;
+    photoCountEl.textContent = ` · 共 ${allPhotos.length} 张照片`;
   }
 
   // 自动渲染分类导航按钮
@@ -40,11 +48,21 @@ document.addEventListener("DOMContentLoaded", () => {
     categoryNav.appendChild(allBtn);
 
     // 根据 CATEGORY_LABELS 渲染分类按钮
+    const momentsLocked = !isMomentsUnlocked();
+
     Object.entries(CATEGORY_LABELS).forEach(([key, label]) => {
       const btn = document.createElement("button");
       btn.className = "category-btn";
       btn.dataset.category = key;
       btn.textContent = label;
+
+      if (key === MOMENTS_CATEGORY && momentsLocked) {
+        btn.textContent = `🔒 ${label}`;
+        btn.disabled = true;
+        btn.classList.add("category-locked");
+        btn.title = "将于 2 月 11 日中午 12:00 解锁";
+      }
+
       categoryNav.appendChild(btn);
     });
 
@@ -327,6 +345,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const applyCategory = (category) => {
+    // 如果 100 个瞬间尚未解锁，防御性地避免切换到该分类
+    if (category === MOMENTS_CATEGORY && !isMomentsUnlocked()) {
+      return;
+    }
+
     activeCategory = category;
     const cards = galleryEl.querySelectorAll(".photo-card");
     cards.forEach((card, idx) => {
@@ -340,9 +363,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (categoryButtons.length) {
     categoryButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
+        const cat = btn.dataset.category || "all";
+
+        if (cat === MOMENTS_CATEGORY && !isMomentsUnlocked()) {
+          // 按钮被禁用时不响应点击（双重防御）
+          return;
+        }
+
         categoryButtons.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        const cat = btn.dataset.category || "all";
         applyCategory(cat);
       });
     });
