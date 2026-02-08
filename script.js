@@ -21,12 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // 「100个瞬间」分类的解锁时间（2026-02-11 12:00 Asia/Shanghai）
   const MOMENTS_CATEGORY = "moments";
   const MOMENTS_UNLOCK_TIMESTAMP = Date.parse("2026-02-11T04:00:00Z"); // 同一时刻的 UTC 时间
-  const isMomentsUnlocked = () => Date.now() >= MOMENTS_UNLOCK_TIMESTAMP;
+  // 预览期间：直接解锁 100 个瞬间分类
+  const isMomentsUnlocked = () => true;
 
   // 在解锁时间前，从相册中排除 100 个瞬间的照片
   const allPhotos = isMomentsUnlocked()
-    ? [...PHOTOS]
-    : PHOTOS.filter((p) => p.category !== MOMENTS_CATEGORY);
+    ? [...ALL_PHOTOS]
+    : ALL_PHOTOS.filter((p) => p.category !== MOMENTS_CATEGORY);
 
   let currentIndex = 0;
   let currentPhotos = [...allPhotos];
