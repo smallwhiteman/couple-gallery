@@ -21,13 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // 「100个瞬间」分类的解锁时间（2026-02-11 12:00 Asia/Shanghai）
   const MOMENTS_CATEGORY = "moments";
   const MOMENTS_UNLOCK_TIMESTAMP = Date.parse("2026-02-11T04:00:00Z"); // 同一时刻的 UTC 时间
-  // 预览期间：直接解锁 100 个瞬间分类
-  const isMomentsUnlocked = () => true;
+  const MOMENTS_PASSWORD = "5201314";
+  let momentsUnlockedByPassword = false;
 
-  // 在解锁时间前，从相册中排除 100 个瞬间的照片
-  const allPhotos = isMomentsUnlocked()
-    ? [...ALL_PHOTOS]
-    : ALL_PHOTOS.filter((p) => p.category !== MOMENTS_CATEGORY);
+  const isMomentsUnlocked = () =>
+    Date.now() >= MOMENTS_UNLOCK_TIMESTAMP || momentsUnlockedByPassword;
+
+  // 所有照片（包含 100 个瞬间）
+  const allPhotos = [...ALL_PHOTOS];
 
   let currentIndex = 0;
   let currentPhotos = [...allPhotos];
@@ -35,6 +36,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (photoCountEl) {
     photoCountEl.textContent = ` · 共 ${allPhotos.length} 张照片`;
+  }
+
+  function updateMomentsButtonState() {
+    if (!categoryNav) return;
+    const btn = categoryNav.querySelector(`.category-btn[data-category="${MOMENTS_CATEGORY}"]`);
+    if (!btn) return;
+    const unlocked = isMomentsUnlocked();
+    const label = CATEGORY_LABELS[MOMENTS_CATEGORY] || "100個瞬间";
+
+    if (unlocked) {
+      btn.textContent = label;
+      btn.disabled = false;
+      btn.classList.remove("category-locked");
+      btn.title = "";
+    } else {
+      btn.textContent = `🔒 ${label}`;
+      btn.disabled = false; // 允许点击输入密码解锁
+      btn.classList.add("category-locked");
+      btn.title = "将于 2 月 11 日中午 12:00 解锁，或输入密码提前查看";
+    }
   }
 
   // 自动渲染分类导航按钮
@@ -49,23 +70,15 @@ document.addEventListener("DOMContentLoaded", () => {
     categoryNav.appendChild(allBtn);
 
     // 根据 CATEGORY_LABELS 渲染分类按钮
-    const momentsLocked = !isMomentsUnlocked();
-
     Object.entries(CATEGORY_LABELS).forEach(([key, label]) => {
       const btn = document.createElement("button");
       btn.className = "category-btn";
       btn.dataset.category = key;
       btn.textContent = label;
-
-      if (key === MOMENTS_CATEGORY && momentsLocked) {
-        btn.textContent = `🔒 ${label}`;
-        btn.disabled = true;
-        btn.classList.add("category-locked");
-        btn.title = "将于 2 月 11 日中午 12:00 解锁";
-      }
-
       categoryNav.appendChild(btn);
     });
+
+    updateMomentsButtonState();
 
     // 更新 categoryButtons 引用
     return categoryNav.querySelectorAll(".category-btn");
@@ -225,8 +238,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!currentPhotos.length) return;
 
     let pool = currentPhotos;
+
+    // 未解锁时，随机也不抽取 100 个瞬间
+    if (!isMomentsUnlocked()) {
+      pool = pool.filter((p) => p.category !== MOMENTS_CATEGORY);
+    }
+
     if (activeCategory !== "all") {
-      pool = currentPhotos.filter((p) => p.category === activeCategory);
+      pool = pool.filter((p) => p.category === activeCategory);
     }
 
     if (!pool.length) return;
@@ -346,17 +365,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const applyCategory = (category) => {
-    // 如果 100 个瞬间尚未解锁，防御性地避免切换到该分类
-    if (category === MOMENTS_CATEGORY && !isMomentsUnlocked()) {
-      return;
-    }
-
     activeCategory = category;
     const cards = galleryEl.querySelectorAll(".photo-card");
     cards.forEach((card, idx) => {
       const photo = currentPhotos[idx];
       const pCat = (photo && photo.category) || "daily";
-      const show = category === "all" || pCat === category;
+      let show = category === "all" || pCat === category;
+
+      // 在未解锁前，从“全部”分类中排除 100 个瞬间
+      if (!isMomentsUnlocked() && category === "all" && pCat === MOMENTS_CATEGORY) {
+        show = false;
+      }
+
       card.style.display = show ? "" : "none";
     });
   };
@@ -367,8 +387,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const cat = btn.dataset.category || "all";
 
         if (cat === MOMENTS_CATEGORY && !isMomentsUnlocked()) {
-          // 按钮被禁用时不响应点击（双重防御）
-          return;
+          const input = window.prompt("请输入 100 个瞬间的密码（或留空取消）：");
+          if (input !== null && input.trim() === MOMENTS_PASSWORD) {
+            momentsUnlockedByPassword = true;
+            updateMomentsButtonState();
+          } else {
+            return;
+          }
         }
 
         categoryButtons.forEach((b) => b.classList.remove("active"));
@@ -377,4 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  // 初始应用“全部”分类，确保在未解锁时 100 个瞬间不会泄露
+  applyCategory("all");
 });
